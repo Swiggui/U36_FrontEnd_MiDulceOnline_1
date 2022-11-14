@@ -8,12 +8,16 @@ const Login = () => {
             <div className="container">
                 <form>
                   <div className="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Usuario"/>
-                    <label for="floatingInput">Usuario</label>
+                    <input type="text" className="form-control" id="floatingInput" placeholder="Usuario" />
+
+                    <label htmlFor="floatingInput">Usuario</label>
+
                     </div>                  
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
+
                   <input type="password" className="form-control" id="floatingPassword" placeholder="Contraseña"/>
-                    <label for="floatingPassword">Contraseña</label>
+                    <label htmlFor="floatingPassword">Contraseña</label>
+
                   </div>
                   <button type="submit" className="btn btn-outline-primary w-100 my-2">Iniciar Sesión</button>
                   <Link to={"/CrearCuenta"} className="btn btn-outline-success w-100 my-2">Crear Cuenta</Link>
