@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import APIInvoke from "../../utils/ApiInvoke";
-import swal from "sweetalert2";
+import swal from "sweetalert";
+
 const CrearCuenta = () => {
+  let titulo, msg, tipo;
 
   const alerta = (mensaje, tipo, titulo) => {
     swal({
@@ -41,7 +43,10 @@ const CrearCuenta = () => {
 
   function verifyNonEqualPassword(e){
     if(user.password !== user.confirmPassword){
-      alert("Las contraseñas no son iguales, por favor inténtelo de nuevo");
+      titulo = "Error";
+      msg = "Las contraseñas no coinciden";
+      tipo = "error";
+      alerta(msg, tipo, titulo);
       return false;
     } else {
       return true;
@@ -58,7 +63,7 @@ const CrearCuenta = () => {
     
     const response = await APIInvoke.invokePOST("/usuario/crear", data);
     const answer = response.aviso;
-    let titulo, msg, tipo;
+    
 
     if(answer === "El usuario introducido ya existe"){
       titulo = "Error";
