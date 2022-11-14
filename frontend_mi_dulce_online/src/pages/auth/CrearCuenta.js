@@ -1,8 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import APIInvoke from "../../utils/ApiInvoke";
-
+import swal from "sweetalert2";
 const CrearCuenta = () => {
+
+  const alerta = (mensaje, tipo, titulo) => {
+    swal({
+      title: titulo,
+      text: mensaje,
+      icon: tipo,
+      buttons: {
+        confirm:{
+          text: "Aceptar",
+          value: true,
+          visible: true,
+          className: "btn btn-outline-primary",
+          closeModal: true
+        }
+      }
+    });
+  }
 
   const [user, setUser] = useState({
     nickName: "",
@@ -40,7 +57,28 @@ const CrearCuenta = () => {
     }
     
     const response = await APIInvoke.invokePOST("/usuario/crear", data);
-    console.log(response);
+    const answer = response.aviso;
+    let titulo, msg, tipo;
+
+    if(answer === "El usuario introducido ya existe"){
+      titulo = "Error";
+      msg = "El usuario introducido ya está registrado en la plataforma";
+      tipo = "error";
+      alerta(msg, tipo, titulo);
+    } else if (answer === "El usuario ha sido creado correctamente") {
+      titulo = "Éxito";
+      msg = "El usuario ha sido creado exitosamente";
+      tipo = "success";
+      alerta(msg, tipo, titulo);
+    }
+
+    setUser({
+      nickName: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    });
+
   }
   const onSubmit = (e) => {
     e.preventDefault();  
@@ -51,7 +89,7 @@ const CrearCuenta = () => {
   }
 
     return(
-        <div className="container-xl position-absolute top-50 start-50 translate-middle">
+        <div className="my-4 container-xl position-absolute top-50 start-50 translate-middle">
             <h1 className="text-center mb-3">Crear Cuenta</h1>
             <div className="container">
                 <form onSubmit={onSubmit}>
