@@ -10,6 +10,7 @@ const Home = () => {
     return(
         <div className="container-xxl">
             <Navbar/>
+            <Footer/>
         </div>
     );
 }
