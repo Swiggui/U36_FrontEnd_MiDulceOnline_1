@@ -4,13 +4,15 @@ import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import ApiInvoke from "../../utils/ApiInvoke";
 
-const ListCandies = () => {
+const CreateCandies = () => {
+
     return(
         <div>
             <Nabvar/>
             <Footer/>
         </div>
     );
+
 }
 
-export default ListCandies;
+export default CreateCandies;

@@ -15,11 +15,11 @@ const Home = () => {
                     <h1 className="text-center">¡Bienvenido a Mi Dulce Online!</h1>
                     <h2 className="text-center mt-3">¿Qué deseas hacer?</h2>
                     <div className="row mt-5">
-                        <Link className="col container mx-2 btn btn-outline-success">
+                        <Link to={"/CrearDulce"} className="col container mx-2 btn btn-outline-success">
                             <img src="/create.png" className="row mx-auto"></img>
                             Crear un producto
                         </Link> 
-                        <Link className="col container mx-2 btn btn-outline-primary">
+                        <Link to={"/ListarDulces"} className="col container mx-2 btn btn-outline-primary">
                             <img src="/edit.png" className="row mx-auto"></img>
                             Ver todos los productos
                         </Link> 

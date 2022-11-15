@@ -19,8 +19,8 @@ const Nabvar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                   <div className="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <a className="nav-link mx-1 head" href="#">Listar</a>
-                    <a className="nav-link mx-1 head" href="#">Crear</a>
+                    <Link to={"/ListarDulces"} className="nav-link mx-1 head">Listar</Link>
+                    <Link to={"/CrearDulce"} className="nav-link mx-1 head">Crear</Link>
                     <button  onClick={onClick} className="btn btn-outline-danger mx-2" type="button">Salir</button>
                   </div>
                 </div>
