@@ -1,4 +1,6 @@
 import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Home = () => {
 
@@ -6,7 +8,9 @@ const Home = () => {
     console.log(token);
 
     return(
-        <h1>Menu</h1>
+        <div className="container-xxl">
+            <Navbar/>
+        </div>
     );
 }
 
