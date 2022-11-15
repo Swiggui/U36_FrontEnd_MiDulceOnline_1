@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -8,8 +9,22 @@ const Home = () => {
     console.log(token);
 
     return(
-        <div className="container-xxl">
+        <div>
             <Navbar/>
+                <main className="container-xl position-absolute top-50 start-50 translate-middle">
+                    <h1 className="text-center">¡Bienvenido a Mi Dulce Online!</h1>
+                    <h2 className="text-center mt-3">¿Qué deseas hacer?</h2>
+                    <div className="row mt-5">
+                        <Link className="col container mx-2 btn btn-outline-success">
+                            <img src="/create.png" className="row mx-auto"></img>
+                            Crear un producto
+                        </Link> 
+                        <Link className="col container mx-2 btn btn-outline-primary">
+                            <img src="/edit.png" className="row mx-auto"></img>
+                            Ver todos los productos
+                        </Link> 
+                    </div>
+                </main>
             <Footer/>
         </div>
     );
