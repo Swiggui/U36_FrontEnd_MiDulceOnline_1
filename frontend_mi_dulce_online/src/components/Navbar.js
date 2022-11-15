@@ -16,17 +16,17 @@ const Nabvar = () => {
                   Mi Dulce Online
                 </Link>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    <li className="nav-item">
+                  <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li className="nav-item d-flex">
                       <a className="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item d-flex">
                       <a className="nav-link" href="#">Features</a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item d-flex">
                       <a className="nav-link" href="#">Pricing</a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item d-flex">
                       <a className="nav-link disabled">Disabled</a>
                     </li>
                   </ul>
