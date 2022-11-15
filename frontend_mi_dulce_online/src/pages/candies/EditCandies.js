@@ -3,26 +3,8 @@ import Nabvar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import ApiInvoke from "../../utils/ApiInvoke";
-import swal from "sweetalert";
 
-const CreateCandies = () => {
-
-    const alerta= (mensaje, tipo, titulo)=>{
-        swal({
-            title: titulo,
-            text: mensaje, 
-            icon: tipo,
-            buttons: {
-                confirm:{
-                    text: "Aceptar",
-                    value: true, 
-                    visible: true,
-                    className: "btn btn-secondary",
-                    closeModal: true
-                }
-            }
-        });
-    }
+const EditCandies = () => {
 
     const [dulce, setDulce] = useState({
         referencia: "",
@@ -44,68 +26,19 @@ const CreateCandies = () => {
         });
     }
 
-    useEffect(() => {
-        document.getElementById("referencia").focus();
-    }, []);
-
-    const createCandie = async () => {
-        const data = {
-            referencia: dulce.referencia,
-            marca: dulce.marca,
-            presentacion: dulce.presentacion,
-            sabor: dulce.sabor,
-            tipo: dulce.tipo,
-            cantidad: dulce.cantidad,
-            precio: dulce.precio,
-            pesoNeto: dulce.peso
-        }
-
-        const response = await ApiInvoke.invokePOST("/dulce/nuevo", data);
-        const aviso = response.aviso;
-        console.log(aviso);
-        let msg, tipo, titulo;
-
-        if(aviso === "Dulce almacenado correctamente"){
-            msg = "Dulce almacenado correctamente"
-            tipo = "success";
-            titulo = "¡Enhorabuena!"
-            alerta(msg, tipo, titulo);
-
-            setDulce({
-                referencia: "",
-                marca: "",
-                presentacion: "",
-                sabor: "",
-                tipo: "",
-                cantidad: "",
-                precio: "",
-                peso: ""
-            })
-        } else if(aviso === "Dulce Existente"){
-            msg = "Existe un dulce con la misma referencia"; 
-            tipo = "error";
-            titulo = "No se pudo guardar"; 
-            alerta(msg, tipo, titulo); 
-        }
-
-        
-        
-    }
-
     const onSubmit = (e) => {
-        e.preventDefault();
-        createCandie();
+
     }
 
     return (
         <div>
             <Nabvar />
             <div className="my-4 container-xl">
-                <h1 className="text-center mb-3">Crear Dulce</h1>
+                <h1 className="text-center mb-3">Editar Dulce</h1>
                 <div className="container">
-                    <form className="row g-3" onSubmit={onSubmit}>
+                    <form className="row g-3">
                         <div className="row mb-3">
-                            <label htmlFor="referencia" className="col-sm-2 col-form-label">Referencia</label>
+                            <label for="referencia" className="col-sm-2 col-form-label">Email</label>
                             <div className="col-sm-10">
                                 <input
                                     type="text"
@@ -120,7 +53,7 @@ const CreateCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label htmlFor="marca" className="col-sm-2 col-form-label">Marca</label>
+                            <label for="marca" className="col-sm-2 col-form-label">Marca</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -134,7 +67,7 @@ const CreateCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label htmlFor="presentacion" className="col-sm-2 col-form-label">Presentación</label>
+                            <label for="presentacion" className="col-sm-2 col-form-label">Presentación</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -148,7 +81,7 @@ const CreateCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label htmlFor="sabor" className="col-sm-2 col-form-label">Sabor</label>
+                            <label for="sabor" className="col-sm-2 col-form-label">Sabor</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -162,7 +95,7 @@ const CreateCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label htmlFor="tipo" className="col-sm-2 col-form-label">Tipo</label>
+                            <label for="tipo" className="col-sm-2 col-form-label">Tipo</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -176,11 +109,11 @@ const CreateCandies = () => {
                             </div>
                         </div>
 
-                        <div className="col-sm-4">
-                            <label htmlFor="cantidad" className="form-label">Cantidad</label>
+                        <div class="col-sm-4">
+                            <label for="cantidad" class="form-label">Cantidad</label>
                             <input
                                 type="number"
-                                className="form-control"
+                                class="form-control"
                                 id="cantidad"
                                 name="cantidad"
                                 placeholder="Cantidad del producto"
@@ -189,13 +122,13 @@ const CreateCandies = () => {
                                 required
                             />
                         </div>
-                        <div className="col-sm-4">
-                            <label htmlFor="precio" className="form-label">Precio</label>
+                        <div class="col-sm-4">
+                            <label for="precio" class="form-label">Precio</label>
                             <div className="input-group">
-                                <div className="input-group-text">$</div>
+                                <div class="input-group-text">$</div>
                                 <input
                                     type="number"
-                                    className="form-control"
+                                    class="form-control"
                                     id="precio"
                                     name="precio"
                                     placeholder="Precio del producto"
@@ -205,12 +138,12 @@ const CreateCandies = () => {
                                 />
                             </div>
                         </div>
-                        <div className="col-sm-4">
-                            <label htmlFor="peso" className="form-label">Peso</label>
+                        <div class="col-sm-4">
+                            <label for="peso" class="form-label">Peso</label>
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    className="form-control"
+                                    class="form-control"
                                     id="peso"
                                     name="peso"
                                     placeholder="Peso del producto"
@@ -218,11 +151,11 @@ const CreateCandies = () => {
                                     onChange={onChange}
                                     required
                                 />
-                                <div className="input-group-text">gr</div>
+                                <div class="input-group-text">gr</div>
                             </div>
                         </div>
 
-                        <button type="submit" className="btn btn-outline-success d-block mx-auto w-100 p-3 mt-4">Registrar producto</button>
+                        <button type="submit" className="btn btn-outline-success d-block mx-auto w-100 p-3">Editar producto</button>
                     </form>
                 </div>
             </div>
@@ -232,4 +165,4 @@ const CreateCandies = () => {
 
 }
 
-export default CreateCandies;
+export default EditCandies;

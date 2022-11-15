@@ -5,6 +5,7 @@ import Login from "./pages/auth/Login";
 import Home from "./pages/Home";
 import CreateCandies from "./pages/candies/CreateCandies";
 import ListCandies from "./pages/candies/ListCandies";
+import EditCandies from "./pages/candies/EditCandies";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/Home" exact element={<Home/>}/>
           <Route path="/CrearDulce" exact element={<CreateCandies/>}/>
           <Route path="/ListarDulces" exact element={<ListCandies/>}/>
+          <Route path="/EditarDulces" exact element={<EditCandies/>}/>
         </Routes>
       </Router>
     </Fragment>
