@@ -1,10 +1,33 @@
 import React from "react";
 import Nabvar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ApiInvoke from "../../utils/ApiInvoke";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const EditCandies = () => {
+
+    const alerta = (mensaje, tipo, titulo) => {
+        swal({
+            title: titulo,
+            text: mensaje,
+            icon: tipo,
+            buttons: {
+                confirm: {
+                    text: "Aceptar",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-outline-primary",
+                    closeModal: true
+                }
+            }
+        });
+    }
+
+    const navigator = useNavigate;
+    const { id } = useParams();
 
     const [dulce, setDulce] = useState({
         referencia: "",
@@ -14,10 +37,20 @@ const EditCandies = () => {
         tipo: "",
         cantidad: "",
         precio: "",
-        peso: ""
+        pesoNeto: ""
     });
 
-    const { referencia, marca, presentacion, sabor, tipo, cantidad, precio, peso } = dulce;
+    const { referencia, marca, presentacion, sabor, tipo, cantidad, precio, pesoNeto } = dulce;
+
+    const loadCandies = async () => {
+        const response = await ApiInvoke.invokeGET("/dulce/" + id);
+        setDulce(response);
+    }
+
+    useEffect(() => {
+        document.getElementById("referencia").focus();
+        loadCandies();
+    })
 
     const onChange = (e) => {
         setDulce({
@@ -26,7 +59,27 @@ const EditCandies = () => {
         });
     }
 
+    const editCandie = async () => {
+        const data = {
+            referencia: dulce.referencia,
+            marca: dulce.marca,
+            presentacion: dulce.presentacion,
+            sabor: dulce.sabor,
+            tipo: dulce.tipo,
+            cantidad: dulce.cantidad,
+            precio: dulce.precio,
+            pesoNeto: dulce.peso
+        }
+    }
+
+    
+    
+    
+    
+
     const onSubmit = (e) => {
+        e.preventDefault();
+        editCandie();
 
     }
 
@@ -36,9 +89,9 @@ const EditCandies = () => {
             <div className="my-4 container-xl">
                 <h1 className="text-center mb-3">Editar Dulce</h1>
                 <div className="container">
-                    <form className="row g-3">
+                    <form className="row g-3" onSubmit={onSubmit}>
                         <div className="row mb-3">
-                            <label for="referencia" className="col-sm-2 col-form-label">Email</label>
+                            <label htmlFor="referencia" className="col-sm-2 col-form-label">Email</label>
                             <div className="col-sm-10">
                                 <input
                                     type="text"
@@ -53,7 +106,7 @@ const EditCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label for="marca" className="col-sm-2 col-form-label">Marca</label>
+                            <label htmlFor="marca" className="col-sm-2 col-form-label">Marca</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -67,7 +120,7 @@ const EditCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label for="presentacion" className="col-sm-2 col-form-label">Presentación</label>
+                            <label htmlFor="presentacion" className="col-sm-2 col-form-label">Presentación</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -81,7 +134,7 @@ const EditCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label for="sabor" className="col-sm-2 col-form-label">Sabor</label>
+                            <label htmlFor="sabor" className="col-sm-2 col-form-label">Sabor</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -95,7 +148,7 @@ const EditCandies = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label for="tipo" className="col-sm-2 col-form-label">Tipo</label>
+                            <label htmlFor="tipo" className="col-sm-2 col-form-label">Tipo</label>
                             <div className="col-sm-10">
                                 <input type="text"
                                     className="form-control"
@@ -109,11 +162,11 @@ const EditCandies = () => {
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
-                            <label for="cantidad" class="form-label">Cantidad</label>
+                        <div className="col-sm-4">
+                            <label htmlFor="cantidad" className="form-label">Cantidad</label>
                             <input
                                 type="number"
-                                class="form-control"
+                                className="form-control"
                                 id="cantidad"
                                 name="cantidad"
                                 placeholder="Cantidad del producto"
@@ -122,13 +175,13 @@ const EditCandies = () => {
                                 required
                             />
                         </div>
-                        <div class="col-sm-4">
-                            <label for="precio" class="form-label">Precio</label>
+                        <div className="col-sm-4">
+                            <label htmlFor="precio" className="form-label">Precio</label>
                             <div className="input-group">
-                                <div class="input-group-text">$</div>
+                                <div className="input-group-text">$</div>
                                 <input
                                     type="number"
-                                    class="form-control"
+                                    className="form-control"
                                     id="precio"
                                     name="precio"
                                     placeholder="Precio del producto"
@@ -138,20 +191,20 @@ const EditCandies = () => {
                                 />
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <label for="peso" class="form-label">Peso</label>
+                        <div className="col-sm-4">
+                            <label htmlFor="peso" className="form-label">Peso</label>
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    class="form-control"
+                                    className="form-control"
                                     id="peso"
                                     name="peso"
                                     placeholder="Peso del producto"
-                                    value={peso}
+                                    value={pesoNeto}
                                     onChange={onChange}
                                     required
                                 />
-                                <div class="input-group-text">gr</div>
+                                <div className="input-group-text">gr</div>
                             </div>
                         </div>
 

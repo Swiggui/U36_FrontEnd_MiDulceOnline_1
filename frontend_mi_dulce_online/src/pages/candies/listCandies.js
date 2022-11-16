@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import ApiInvoke from "../../utils/ApiInvoke";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 const ListCandies = () => {
 
@@ -45,17 +46,17 @@ const ListCandies = () => {
                                 dulces.map(
                                     item =>
                                         <tr className="table-info">
-                                            <td className="">{item.referencia}</td>
-                                            <td className="">{item.marca}</td>
-                                            <td className="">{item.presentacion}</td>
-                                            <td className="">{item.sabor}</td>
-                                            <td className="">{item.tipo}</td>
-                                            <td className="">{item.cantidad}</td>
-                                            <td className="">{item.precio}</td>
-                                            <td className="">{item.pesoNeto}</td>
+                                            <td>{item.referencia}</td>
+                                            <td>{item.marca}</td>
+                                            <td>{item.presentacion}</td>
+                                            <td>{item.sabor}</td>
+                                            <td>{item.tipo}</td>
+                                            <td>{item.cantidad}</td>
+                                            <td>{item.precio}</td>
+                                            <td>{item.pesoNeto}</td>
                                             <td>
-                                                <button className="btn btn-outline-primary">Editar</button>
-                                                <button className="btn btn-outline-danger">Eliminar</button>
+                                                <Link to={`/editar/${item._id}`} className="btn btn-outline-primary mx-3">Editar</Link>
+                                                <button className="btn btn-outline-danger mx-3">Eliminar</button>
                                             </td>
                                         </tr>
                                 )
