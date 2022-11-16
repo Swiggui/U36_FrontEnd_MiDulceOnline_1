@@ -105,7 +105,7 @@ const EditCandies = () => {
                 <div className="container">
                     <form className="row g-3" onSubmit={onSubmit}>
                         <div className="row mb-3">
-                            <label htmlFor="referencia" className="col-sm-2 col-form-label">Email</label>
+                            <label htmlFor="referencia" className="col-sm-2 col-form-label">Referencia</label>
                             <div className="col-sm-10">
                                 <input
                                     type="text"
