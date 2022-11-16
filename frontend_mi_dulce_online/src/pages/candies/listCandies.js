@@ -4,8 +4,27 @@ import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import ApiInvoke from "../../utils/ApiInvoke";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
+import { confirm } from "react-confirm-box";
 
 const ListCandies = () => {
+
+    const alerta= (mensaje, tipo, titulo)=>{
+        swal({
+            title: titulo,
+            text: mensaje, 
+            icon: tipo,
+            buttons: {
+                confirm:{
+                    text: "Aceptar",
+                    value: true, 
+                    visible: true,
+                    className: "btn btn-outline-success",
+                    closeModal: true
+                }
+            }
+        });
+    }
 
     const [dulces, setDulces] = useState([]);
 
@@ -13,6 +32,25 @@ const ListCandies = () => {
         const response = await ApiInvoke.invokeGET("/dulce/todos");
         console.log(response);
         setDulces(response);
+    }
+
+    const deleteCandie = async (e, id) => {
+        e.preventDefault();
+
+        const confirmation = await confirm("¿Desea eliminar este dulce?");
+        let msj, titulo, tipo;
+
+        if(confirmation){
+            await ApiInvoke.invokeDELETE("/dulce/eliminar/" + id);
+            loadCandies();
+
+            msj = "Vehiculo eliminado correctamente"; 
+            tipo = "success";
+            titulo = "Proceso exitoso"; 
+            alerta(msj, tipo, titulo); 
+
+            loadCandies();
+        }
     }
 
     useEffect(() => {
@@ -55,7 +93,11 @@ const ListCandies = () => {
                                             <td>{item.pesoNeto}</td>
                                             <td>
                                                 <Link to={`/editar/${item._id}`} className="btn btn-outline-primary mx-3">Editar</Link>
-                                                <button className="btn btn-outline-danger mx-3">Eliminar</button>
+                                                <button
+                                                    onClick={(e) => deleteCandie(e, item._id)}
+                                                    className="btn btn-outline-danger mx-3 "
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal">Eliminar</button>
                                             </td>
                                         </tr>
                                 )

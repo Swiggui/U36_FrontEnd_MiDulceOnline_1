@@ -31,7 +31,7 @@ body {
   border-radius: 15px !important;
 }
 
-.navbar{
+.navbar, .modal-content{
   background-color: #6bb3afea;
 }
 
@@ -42,4 +42,8 @@ body {
 
 .head{
   color: #e3f2fd !important;
+}
+
+.modal-header, .modal-footer{
+  border: none !important;
 }
