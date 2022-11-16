@@ -26,7 +26,7 @@ const EditCandies = () => {
         });
     }
 
-    const navigator = useNavigate;
+    const navigator = useNavigate();
     const { id } = useParams();
 
     const [dulce, setDulce] = useState({
@@ -50,7 +50,7 @@ const EditCandies = () => {
     useEffect(() => {
         document.getElementById("referencia").focus();
         loadCandies();
-    })
+    }, []);
 
     const onChange = (e) => {
         setDulce({
@@ -68,14 +68,28 @@ const EditCandies = () => {
             tipo: dulce.tipo,
             cantidad: dulce.cantidad,
             precio: dulce.precio,
-            pesoNeto: dulce.peso
+            pesoNeto: dulce.pesoNeto
+        }
+
+        const response = await ApiInvoke.invokePUT("/dulce/editar/"+id, data);
+        let msj, tipo, titulo;
+
+        if(response.aviso === "Dulce editado correctamente"){
+            msj = "Dulce editado exitosamente";
+            tipo = "success";
+            titulo = "¡Enhorabuena!";
+            alerta(msj, tipo, titulo);
+
+            navigator("/ListarDulces");
+        } else {
+            msj = "No fué posible editar el dulce"; 
+            tipo = "error";
+            titulo = "Falla en el camino"; 
+            alerta(msj, tipo, titulo);
+
+            navigator("/ListarDulces");
         }
     }
-
-    
-    
-    
-    
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -192,13 +206,13 @@ const EditCandies = () => {
                             </div>
                         </div>
                         <div className="col-sm-4">
-                            <label htmlFor="peso" className="form-label">Peso</label>
+                            <label htmlFor="pesoNeto" className="form-label">Peso</label>
                             <div className="input-group">
                                 <input
                                     type="number"
                                     className="form-control"
-                                    id="peso"
-                                    name="peso"
+                                    id="pesoNeto"
+                                    name="pesoNeto"
                                     placeholder="Peso del producto"
                                     value={pesoNeto}
                                     onChange={onChange}
